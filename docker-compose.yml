@@ -1,0 +1,21 @@
+services:
+  server:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    links:
+      - db
+    env_file:
+      - .dev.env
+  
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST_AUTH_METHOD="trust"
+      - POSTGRES_DATABASE=lite
